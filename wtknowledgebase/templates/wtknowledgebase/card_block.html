@@ -1,0 +1,14 @@
+{% load wagtailcore_tags %}
+
+<div class="{{ self.card_classes|default:"card" }}">
+  {% if self.header_title %}
+  <div class="{{ self.card_header_classes|default:"card-header" }}">
+    {{ self.header_title }}
+  </div>
+  {% endif %}
+  <div class="{{ self.card_body_classes|default:"card-body" }}">
+    {% for block in self.body %}
+      {% include_block block %}
+    {% endfor %}
+  </div>
+</div>
