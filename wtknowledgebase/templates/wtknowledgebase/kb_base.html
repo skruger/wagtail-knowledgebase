@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block kb_breadcrumb %}
+  <nav class="navbar navbar-expand-md navbar-light vg-light">
+    <a class="navbar-brand" href="{{ home_url|default:"/" }}">KB</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        {% for parent in page.get_ancestors %}
+          {% if parent.url %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ parent.url }}">{{ parent.title }}</a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </nav>
+{% endblock %}

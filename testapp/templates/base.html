@@ -29,7 +29,18 @@
     <body class="{% block body_class %}{% endblock %}">
         {% wagtailuserbar %}
         <div class="container-fluid">
+          <h1>
+            Wagtail Knowledgebase Demo
+            <a class="btn btn-primary" href="{% url 'search' %}">Search</a>
+          </h1>
+        </div>
+        <!-- Start KB Breadcrumb -->
+        {% block kb_breadcrumb %}{% endblock %}
+        <!-- End KB Breadcrumb -->
+        <div class="container-fluid">
+          <!-- Start Content -->
           {% block content %}{% endblock %}
+          <!-- End Content -->
         </div>
 
         {# Global javascript #}
