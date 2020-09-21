@@ -8,7 +8,7 @@ from wtknowledgebase import blocks
 
 
 class StreamFieldBodyMixin(Page):
-    body = StreamField(blocks.BASIC_BLOCKS)
+    body = StreamField(blocks.stream_builder.blocks())
 
     class Meta:
         abstract = True

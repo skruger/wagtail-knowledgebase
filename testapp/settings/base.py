@@ -115,6 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SESSION_COOKIE_NAME = 'WTKBSESSION'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -161,3 +162,12 @@ WAGTAIL_SITE_NAME = "testapp"
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
+
+WTKNOWLEDGEBASE_STATIC_BLOCKS = [
+    ('special_template', dict(
+        admin_text="This is a special static template",
+        label="Special Template",
+        icon='doc-full',
+        template='_special_template.html',
+    )),
+]
