@@ -1,0 +1,6 @@
+{% load wagtailcore_tags %}
+<div class="jumbotron {{ self.extra_class }}">
+  {% for block in self.body %}
+    {% include_block block %}
+  {% endfor %}
+</div>
