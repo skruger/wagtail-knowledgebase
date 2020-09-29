@@ -4,6 +4,31 @@ from wagtail.images.blocks import ImageChooserBlock
 from django.conf import settings
 
 
+class CustomStruct(blocks.StructBlock):
+    type_classes = (
+        ('string', blocks.CharBlock),
+        ('rich_text', blocks.RichTextBlock),
+        ('image', ImageChooserBlock),
+        ('quote', blocks.BlockQuoteBlock),
+        ('page', blocks.PageChooserBlock),
+    )
+
+    def __init__(self, *args, **kwargs):
+        cfg_local_blocks = kwargs.pop('blocks')
+        local_blocks = list()
+        for name, block_args in cfg_local_blocks:
+            local_blocks.append(
+                (name, self._block_args_to_block(**block_args))
+            )
+
+        super().__init__(local_blocks, *args, **kwargs)
+
+    def _block_args_to_block(self, type_name=None, **type_kwargs):
+        types = dict(self.type_classes)
+        type_class = types.get(type_name, blocks.CharBlock)
+        return type_class(**type_kwargs)
+
+
 class StreamBuilder:
     default_blocks = [
         ('richtext', blocks.RichTextBlock()),
@@ -15,9 +40,14 @@ class StreamBuilder:
     def __init__(self, initial_blocks=None):
         self.initial_blocks = initial_blocks or self.default_blocks
 
-        for name, block_kwargs in settings.WTKNOWLEDGEBASE_STATIC_BLOCKS:
+        for name, block_kwargs in getattr(settings, 'WTKNOWLEDGEBASE_STATIC_BLOCKS', []):
             self.initial_blocks.append(
                 (name, blocks.StaticBlock(**block_kwargs))
+            )
+
+        for name, block_kwargs in getattr(settings, 'WTKNOWLEDGEBASE_STRUCT_BLOCKS', []):
+            self.initial_blocks.append(
+                (name, CustomStruct(**block_kwargs))
             )
 
         self._blocks = list()

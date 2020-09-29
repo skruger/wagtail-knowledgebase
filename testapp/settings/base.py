@@ -171,3 +171,19 @@ WTKNOWLEDGEBASE_STATIC_BLOCKS = [
         template='_special_template.html',
     )),
 ]
+
+WTKNOWLEDGEBASE_STRUCT_BLOCKS = [
+    ('mycard', dict(
+        blocks=[
+            ('heading', dict(type_name='string', required=True)),
+            ('body', dict(type_name='rich_text', required=True)),
+            ('page_link', dict(type_name='page')),
+            ('image', dict(type_name='image')),
+            ('css_class', dict(required=False))
+        ],
+        admin_text="This is a special struct block",
+        label="My Card",
+        icon='doc-full',
+        template='_mycard_template.html',
+    )),
+]

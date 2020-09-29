@@ -1,0 +1,16 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+<div class="card">
+  <div class="card-header">
+    <h3>
+      <a href="{{ self.page_link.url|default:"#" }}">{{ self.heading }}</a>
+    </h3>
+  </div>
+  <div class="card-body">
+    <div class="{{ self.css_class }}">
+      {% image self.image width-400 %}
+      {{ self.body|richtext }}
+    </div>
+  </div>
+</div>
+
