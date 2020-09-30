@@ -8,9 +8,14 @@
   </div>
   <div class="card-body">
     <div class="{{ self.css_class }}">
-      {% image self.image width-400 %}
+      {% image self.image fill-200x200-c100 %}
       {{ self.body|richtext }}
     </div>
+    {% if self.email %}
+      <p>
+        Email: {{ self.email }}
+      </p>
+    {% endif %}
   </div>
 </div>
 

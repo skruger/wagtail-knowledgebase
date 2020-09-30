@@ -6,22 +6,29 @@ from django.conf import settings
 
 class CustomStruct(blocks.StructBlock):
     type_classes = (
-        ('string', blocks.CharBlock),
+        ('char', blocks.CharBlock),
+        ('text', blocks.TextBlock),
+        ('email', blocks.EmailBlock),
+        ('url', blocks.URLBlock),
         ('rich_text', blocks.RichTextBlock),
         ('image', ImageChooserBlock),
         ('quote', blocks.BlockQuoteBlock),
         ('page', blocks.PageChooserBlock),
+        ('choice', blocks.ChoiceBlock),
+        ('boolean', blocks.BooleanBlock),
+        ('integer', blocks.IntegerBlock),
+        ('decimal', blocks.DecimalBlock),
     )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, **kwargs):
         cfg_local_blocks = kwargs.pop('blocks')
         local_blocks = list()
-        for name, block_args in cfg_local_blocks:
+        for name, block_args in cfg_local_blocks or []:
             local_blocks.append(
                 (name, self._block_args_to_block(**block_args))
             )
 
-        super().__init__(local_blocks, *args, **kwargs)
+        super().__init__(local_blocks, **kwargs)
 
     def _block_args_to_block(self, type_name=None, **type_kwargs):
         types = dict(self.type_classes)
