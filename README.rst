@@ -22,8 +22,8 @@ of the blocks defined for knowledgebase pages.
 
 ::
 
-  from wagtail.core.models import Page
-  from wagtail.core.fields import StreamField
+  from wagtail.models import Page
+  from wagtail.fields import StreamField
   from wtknowledgebase import blocks
 
   class HomePage(Page):
