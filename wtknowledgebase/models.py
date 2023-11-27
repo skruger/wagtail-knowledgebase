@@ -1,14 +1,14 @@
 from django.db import models
 
-from wagtail.core.models import Page
-from wagtail.core.fields import StreamField
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.models import Page
+from wagtail.fields import StreamField
+from wagtail.admin.panels import FieldPanel
 
 from wtknowledgebase import blocks
 
 
 class StreamFieldBodyMixin(Page):
-    body = StreamField(blocks.stream_builder.blocks())
+    body = StreamField(blocks.stream_builder.blocks(), use_json_field=True)
 
     class Meta:
         abstract = True
@@ -21,7 +21,7 @@ class KbIndexPage(StreamFieldBodyMixin, Page):
     ]
 
     content_panels = Page.content_panels + [
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
     ]
 
 
@@ -35,11 +35,11 @@ class KbCategoryPage(StreamFieldBodyMixin, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('category_name'),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
     ]
 
 
 class KbArticlePage(StreamFieldBodyMixin, Page):
     content_panels = Page.content_panels + [
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
     ]

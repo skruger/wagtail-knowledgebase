@@ -23,7 +23,7 @@ setup(
         'Framework :: Django',
     ],
     install_requires=[
-        "wagtail>=2.9.1",
+        "wagtail>=5.0.0",
     ],
     include_package_data=True,
     zip_safe=False,
